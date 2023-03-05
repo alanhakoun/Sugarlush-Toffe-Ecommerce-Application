@@ -1,4 +1,4 @@
-# Web Development Project
+# Software Assignment 2
  
 ## Group Team
 | Name | ID | Email |

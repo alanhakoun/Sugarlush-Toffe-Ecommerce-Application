@@ -1,4 +1,4 @@
-# Software Assignment 2
+# Software Assignment 2 & 3 
  
 ## Group Team
 | Name | ID | Email |

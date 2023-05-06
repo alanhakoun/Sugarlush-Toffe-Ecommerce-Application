@@ -21,7 +21,7 @@ public class Customer {
         database.addCustomer(this);
     }
     String getPassword(){return password;}
-    String getEmail(){return email;}
+    String getMail(){return email;}
     public void setPassword(String password) {
         this.password = password;
     }

@@ -1,10 +1,16 @@
 package UsersManagement;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Random;
 
 public class SystemApp {
     private int otp;
     static private UsersDatabase database;
+    public SystemApp()
+    {
+        database = new UsersDatabase();
+        fillCustomers();
+    }
     public boolean signup(String name, String pass, String mail, String number)
     {
         if(!validateInfo(mail, pass))
@@ -12,15 +18,18 @@ public class SystemApp {
         database.writeData(name, pass, mail, number);
         return true;
     }
-
     public boolean login(String mail, String password)
     {
-        return database.authenticateUser(mail, password);
+        return database.authenticateUser(password, mail);
     }
     public void forgetPassword(){}
-    public boolean validateInfo(String mail, String pass)
+    public boolean validateInfo(String pass, String mail)
     {
-        return Pattern.compile("^(.+)@(.+)$").matcher(mail).matches() && passwordValidity(pass);
+        String EMAIL_PATTERN ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(mail);
+        return matcher.matches() && passwordValidity(pass);
     }
     public boolean mailExist(String mail)
     {
@@ -48,5 +57,11 @@ public class SystemApp {
     public void changePassword(String mail, String pass)
     {
         database.updatePassword(mail, pass);
+    }
+    public void fillCustomers()    /// used for testing
+    {
+        database.writeData("Mohamed", "12345", "m@gmail.com", "01234567890");
+        database.writeData("Ahmed", "98765", "A@gmail.com", "01034567890");
+        database.writeData("Smith", "24680", "S@gmail.com", "01134567890");
     }
 }

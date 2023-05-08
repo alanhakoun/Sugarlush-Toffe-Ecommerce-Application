@@ -22,7 +22,6 @@ public class SystemApp {
     {
         return database.authenticateUser(password, mail);
     }
-    public void forgetPassword(){}
     public boolean validateInfo(String pass, String mail)
     {
         String EMAIL_PATTERN ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -31,18 +30,7 @@ public class SystemApp {
         Matcher matcher = pattern.matcher(mail);
         return matcher.matches() && passwordValidity(pass);
     }
-    public boolean mailExist(String mail)
-    {
-        return database.find(mail);
-    }
-    public void sendOTP()
-    {
-        Random random = new Random();
-        otp = random.nextInt(1000000);      // 6 digit otp
-        //TODO: send otp
-
-    }
-    public boolean OTPValidity(int otp)
+     public boolean OTPValidity(int otp)
     {
         return this.otp == otp;
     }
@@ -54,14 +42,28 @@ public class SystemApp {
         String passPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,20}$";
         return Pattern.compile(passPattern).matcher(pass).matches();
     }
-    public void changePassword(String mail, String pass)
-    {
-        database.updatePassword(mail, pass);
-    }
+
     public void fillCustomers()    /// used for testing
     {
         database.writeData("Mohamed", "12345", "m@gmail.com", "01234567890");
         database.writeData("Ahmed", "98765", "A@gmail.com", "01034567890");
         database.writeData("Smith", "24680", "S@gmail.com", "01134567890");
     }
+    public void forgetPassword(){}
+    public boolean mailExist(String mail)
+    {
+        return database.find(mail);
+    }
+    public void sendOTP()
+    {
+        Random random = new Random();
+        otp = random.nextInt(1000000);      // 6 digit otp
+        //TODO: send otp
+
+    }
+    public void changePassword(String mail, String pass)
+    {
+        database.updatePassword(mail, pass);
+    }
+    //TODO: forgetPassword
 }

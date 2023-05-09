@@ -1,8 +1,9 @@
-package ShoppingManagement;
+package src.ShoppingManagement;
+import java.util.*;
 
 public class controller {
-    private map <Integer,order> orders ;
-    private map <String,product> products ;
+    private Map<Integer,Order> orders ;
+    private Map <String,Product> products ;
 
     public void addItem(){};
     public void placeOrder(){};

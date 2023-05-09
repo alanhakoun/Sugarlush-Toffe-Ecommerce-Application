@@ -1,3 +1,4 @@
+package src.ShoppingManagement;
 public class OrderedProduct {
 
     private Product productID;
@@ -11,7 +12,7 @@ public class OrderedProduct {
     }
 
     public void updateQuantity(int newQuantity) {
-        if(productID.quantityInStock <= newQuantity) {
+        if(productID.getQuantityInStock() <= newQuantity) {
             this.quantity = newQuantity;
         } else {
             System.out.println("Not enough quantity in stock!");
@@ -19,8 +20,7 @@ public class OrderedProduct {
     }
 
     public void updateTotalPrice() {
-        int newPrice = quantity*productID.totalPrice;
-        this.totalPrice = newPrice;
+        this.totalPrice = quantity*productID.getPrice();
     }
     public Product getProductID() {
         return productID;

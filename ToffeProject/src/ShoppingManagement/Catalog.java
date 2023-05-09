@@ -1,3 +1,6 @@
+package src.ShoppingManagement;
+import java.util.*;
+
 public class Catalog {
     private Product[] products;
     private String[] categories;
@@ -21,9 +24,9 @@ public class Catalog {
         }
     }
 
-    public Product search(int name) {
+    public Product search(String name) {
         for (Product product : products) {
-            if (product.getName() == name) {
+            if (Objects.equals(product.getName(), name)) {
                 return product;
             }
         }

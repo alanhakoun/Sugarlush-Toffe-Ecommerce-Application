@@ -1,7 +1,7 @@
 package src.ShoppingManagement;
 import java.util.*;
 
-public abstract class payment {
+public abstract class Payment {
     // private double amount ;
     private double shippingCost = 20.0 ;
     private OrderedProduct price ;

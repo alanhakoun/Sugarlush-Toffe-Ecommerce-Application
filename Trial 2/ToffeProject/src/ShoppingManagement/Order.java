@@ -1,6 +1,6 @@
 package src.ShoppingManagement;
 
-import UsersManagement.Customer;
+import src.UsersManagement.Customer;
 
 import java.util.*;
 
@@ -10,17 +10,19 @@ public class Order {
 
     private Customer customer;
     private int orderID;
-    private String dateOrdered;
+
+    private static int cnt = 0;
     private src.ShoppingManagement.OrderStatus orderStatus;
 
-    private float amount;
+    private double amount;
     private double schemaVar = 5;
 
-    public Order(Vector<OrderedProduct> list, Customer customer, int orderID, String dateOrdered, src.ShoppingManagement.OrderStatus orderStatus, float amount) {
+    public Order(Vector<OrderedProduct> list, Customer customer, OrderStatus orderStatus, double amount) {
+        this.orderID = cnt;
+        cnt++;
         this.list = list;
         this.customer = customer;
         this.orderID = orderID;
-        this.dateOrdered = dateOrdered;
         this.orderStatus = orderStatus;
         this.amount = amount;
     }
@@ -31,14 +33,6 @@ public class Order {
 
     public void setOrderStatus(src.ShoppingManagement.OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public String getDateOrdered() {
-        return dateOrdered;
-    }
-
-    public void setDateOrdered(String dateOrdered) {
-        this.dateOrdered = dateOrdered;
     }
 
 //    public boolean paymentType() {
@@ -74,21 +68,16 @@ public class Order {
         this.customer = customer;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
     public Vector<OrderedProduct> getList() {
         return list;
-    }
-
-    public void addOrderedItem(OrderedProduct item) {
-        list.add(item);
-        setAmount(this.amount += item.getTotalPrice());
     }
 }
 

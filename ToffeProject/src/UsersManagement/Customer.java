@@ -1,6 +1,6 @@
-package UsersManagement;
+package src.UsersManagement;
 
-import ShoppingManagement.Order;
+import src.ShoppingManagement.Order;
 
 import java.util.Vector;
 

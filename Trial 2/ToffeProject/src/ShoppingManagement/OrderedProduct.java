@@ -1,18 +1,21 @@
 package src.ShoppingManagement;
 public class OrderedProduct {
 
-    private Product productID;
+    private Product product;
+
+
+
     private int quantity;
     private double totalPrice;
 
     public OrderedProduct(Product productID, int quantity, double price) {
-        this.productID = productID;
+        this.product = productID;
         this.quantity = quantity;
         this.totalPrice = price;
     }
 
     public void updateQuantity(int newQuantity) {
-        if(productID.getQuantityInStock() <= newQuantity) {
+        if(product.getQuantityInStock() <= newQuantity) {
             this.quantity = newQuantity;
         } else {
             System.out.println("Not enough quantity in stock!");
@@ -20,14 +23,14 @@ public class OrderedProduct {
     }
 
     public void updateTotalPrice() {
-        this.totalPrice = quantity*productID.getPrice();
+        this.totalPrice = quantity* product.getPrice();
     }
-    public Product getProductID() {
-        return productID;
+    public Product getProduct() {
+        return product;
     }
 
     public void setProduct(Product product) {
-        this.productID = product;
+        this.product = product;
     }
 
     public double getTotalPrice() {
@@ -36,5 +39,12 @@ public class OrderedProduct {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -1,12 +1,8 @@
-package src.ShoppingManagement;
+package src;
 
-import src.ShoppingManagement.Product;
 import java.io.ObjectInputStream;
 import java.util.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Vector;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,42 +11,36 @@ public class ProudctsCatalog {
     private Vector<Product> products;
     private String[] categories;
 
-    public ProudctsCatalog() {
+    public ProudctsCatalog(){
         products = new Vector<>();
     }
 
-    public void loadCatalog() {
+    public void loadCatalog(){
         String fileName = "C:\\projects\\test\\src\\src\\catalog.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             Vector<String> productParts = new Vector<>();
-            int cnt = 0;
             while ((line = reader.readLine()) != null) {
 
                 String[] parts = line.split(",");
                 for (String part : parts) {
                     productParts.add(part.trim());
                 }
-                cnt++;
-                if (cnt == 5) {
-                    Product product = new Product(productParts.get(0), productParts.get(1), Double.parseDouble(productParts.get(2)),
-                            Integer.parseInt(productParts.get(3)), productParts.get(4));
-                    products.add(product);
-                    productParts.clear();
-                    cnt = 0;
-                }
+                Product product = new Product(productParts.get(0),productParts.get(1),Double.parseDouble(productParts.get(2)),
+                        Integer.parseInt(productParts.get(3)),productParts.get(4));
+                products.add(product);
+                productParts.clear();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void print() {
+    public void print(){
         for (int i = 0; i < products.size(); i++) {
             System.out.println(products.get(i).getName() + ' ' + products.get(i).getId());
         }
     }
-
     public void displayAll() {
         for (Product product : products) {
             System.out.println(product.toString());
@@ -72,37 +62,6 @@ public class ProudctsCatalog {
             }
         }
         return null;
-    }
-
-    public void updateProductQtyInStock(int editedProductId, int quantity) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == editedProductId) {
-                if (products.get(i).getQuantityInStock() - quantity < 0) {
-                    System.out.println("Not Enough!");
-                    break;
-                }
-                products.get(i).setQuantityInStock(products.get(i).getQuantityInStock() - quantity);
-                String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\ShoppingManagement\\catalog.txt";
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-                    for (int j = 0; j < products.size(); j++) {
-                        writer.write(products.get(j).getName() + ',');
-                        writer.newLine();
-                        writer.write(products.get(j).getDescription() + ',');
-                        writer.newLine();
-                        writer.write("" + (products.get(j).getPrice()) + ',');
-                        writer.newLine();
-                        writer.write("" + (products.get(j).getQuantityInStock()) + ',');
-                        writer.newLine();
-                        writer.write(products.get(j).getCategory() + ',');
-                        writer.newLine();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-
-        }
     }
 
    /*  public void addItem(Product product) {

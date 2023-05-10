@@ -1,4 +1,4 @@
-package ShoppingManagement;
+package src.ShoppingManagement;
 import src.ShoppingManagement.*;
 
 import java.util.*;

@@ -1,6 +1,6 @@
-package ShoppingManagement;
+package src.ShoppingManagement;
 
-import UsersManagement.Customer;
+import src.UsersManagement.;
 
 import java.util.*;
 

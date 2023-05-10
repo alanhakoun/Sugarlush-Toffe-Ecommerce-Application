@@ -1,15 +1,20 @@
 package src.UsersManagement;
 
-import ShoppingManagement.Order;
+import src.ShoppingManagement.Order;
 
 import java.util.Vector;
 
 public class Customer {
+
+
     private String username;
     private String email;
     private String password;
     private String phoneNum;
     private double loyaltyPoints;
+
+
+
     private Vector<Order> orderHistory;
 
     public Customer(String name, String pass, String mail, String number)
@@ -18,9 +23,8 @@ public class Customer {
         password = pass;
         email = mail;
         phoneNum = number;
-        loyaltyPoints = 0;
     }
-    public void setLoyaltyPoints(int loyaltyPoints) {
+    public void setLoyaltyPoints(double loyaltyPoints) {
         this.loyaltyPoints = loyaltyPoints;
     }
     public double getLoyaltyPoints(){
@@ -36,6 +40,20 @@ public class Customer {
         return orderHistory.toString();
     }
 
+    public Vector<Order> getOrderHistory() {
+        return orderHistory;
+    }
+
+    public void setOrderHistory(Vector<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 //    void logout(){}
 

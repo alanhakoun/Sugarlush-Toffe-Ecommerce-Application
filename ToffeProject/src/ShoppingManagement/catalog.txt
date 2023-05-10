@@ -1,0 +1,2 @@
+one, this is product one, 11.11, 5, sealed
+two, this is product two, 12, 0, loose

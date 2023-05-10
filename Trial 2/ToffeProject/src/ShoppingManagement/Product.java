@@ -2,16 +2,21 @@ package src.ShoppingManagement;
 import java.util.*;
 
 public class Product {
-    static private int id = 1;
+    private int id;
+    static private int cnt = 0;
     private String name;
     private String category;
+
+
+
     private String description;
     private double price;
     private int quantityInStock;
 
 
-    public Product( String name, String description, double price, int quantityInStock,String category) {
-        id++;
+    public Product( String name , String description, double price, int quantityInStock,String category) {
+        this.id = cnt;
+        cnt++;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -47,15 +52,23 @@ public class Product {
         this.name = name;
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        Product.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
     public void setQuantityInStock(int quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

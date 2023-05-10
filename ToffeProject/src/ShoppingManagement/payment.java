@@ -9,5 +9,10 @@ public abstract class payment {
     public double getAmount () {
         return price.getTotalPrice() + shippingCost;
     }
+
+    public int calcLoyaltyPoints(double price){
+        double loyaltyPoints = price * 0.05;
+        return (int) loyaltyPoints;
+    }
 }
 

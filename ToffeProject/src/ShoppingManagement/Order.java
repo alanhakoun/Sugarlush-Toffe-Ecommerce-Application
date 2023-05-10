@@ -1,4 +1,7 @@
-package src.ShoppingManagement;
+package ShoppingManagement;
+
+import UsersManagement.Customer;
+
 import java.util.*;
 
 public class Order {
@@ -8,12 +11,12 @@ public class Order {
     private Customer customer;
     private int orderID;
     private String dateOrdered;
-    private OrderStatus orderStatus;
+    private src.ShoppingManagement.OrderStatus orderStatus;
 
     private float amount;
     private double schemaVar = 5;
 
-    public Order(Vector<OrderedProduct> list, Customer customer, int orderID, String dateOrdered, OrderStatus orderStatus, float amount) {
+    public Order(Vector<OrderedProduct> list, Customer customer, int orderID, String dateOrdered, src.ShoppingManagement.OrderStatus orderStatus, float amount) {
         this.list = list;
         this.customer = customer;
         this.orderID = orderID;
@@ -22,11 +25,11 @@ public class Order {
         this.amount = amount;
     }
 
-    public OrderStatus getOrderStatus() {
+    public src.ShoppingManagement.OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(src.ShoppingManagement.OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 

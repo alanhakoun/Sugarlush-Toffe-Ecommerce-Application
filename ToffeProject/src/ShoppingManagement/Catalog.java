@@ -1,5 +1,6 @@
-package src.ShoppingManagement;
+package ShoppingManagement;
 import java.util.*;
+
 
 public class Catalog {
     private Product[] products;

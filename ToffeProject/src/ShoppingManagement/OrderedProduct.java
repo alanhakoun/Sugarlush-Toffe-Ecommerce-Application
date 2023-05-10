@@ -1,4 +1,4 @@
-package src.ShoppingManagement;
+package ShoppingManagement;
 public class OrderedProduct {
 
     private Product productID;

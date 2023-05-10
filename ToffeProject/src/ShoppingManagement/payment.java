@@ -1,4 +1,4 @@
-package src.ShoppingManagement;
+package ShoppingManagement;
 import java.util.*;
 
 public abstract class payment {

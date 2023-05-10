@@ -1,5 +1,7 @@
 package UsersManagement;
 
+import ShoppingManagement.Order;
+
 import java.util.Vector;
 
 public class Customer {
@@ -8,7 +10,7 @@ public class Customer {
     private String password;
     private String phoneNum;
     private double loyaltyPoints;
-    private Vector<src.ShoppingManagement.Order> orderHistory;
+    private Vector<Order> orderHistory;
 
     public Customer(String name, String pass, String mail, String number)
     {
@@ -19,7 +21,7 @@ public class Customer {
         loyaltyPoints = 0;
     }
     String getPassword(){return password;}
-    String getMail(){return email;}
+    public String getMail(){return email;}
     public void setPassword(String password) {
         this.password = password;
     }

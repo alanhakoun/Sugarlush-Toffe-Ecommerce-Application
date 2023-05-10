@@ -20,6 +20,12 @@ public class Customer {
         phoneNum = number;
         loyaltyPoints = 0;
     }
+    public void setLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
+    public double getLoyaltyPoints(){
+        return loyaltyPoints;
+    }
     String getPassword(){return password;}
     public String getMail(){return email;}
     public void setPassword(String password) {

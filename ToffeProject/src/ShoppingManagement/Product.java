@@ -51,6 +51,8 @@ public class Product {
     public static void setId(int id) {
         Product.id = id;
     }
-
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
 
 }

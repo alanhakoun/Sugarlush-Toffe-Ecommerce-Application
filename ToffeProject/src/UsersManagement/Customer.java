@@ -8,7 +8,7 @@ public class Customer {
     private String password;
     private String phoneNum;
     private double loyaltyPoints;
-//    Vector<Order> orderHistory;
+    private Vector<src.ShoppingManagement.Order> orderHistory;
 
     public Customer(String name, String pass, String mail, String number)
     {
@@ -23,16 +23,16 @@ public class Customer {
     public void setPassword(String password) {
         this.password = password;
     }
-//    String orderHistoryToString()
-//    {
-//        return orderHistory.toString();
-//    }
+    String orderHistoryToString()
+    {
+        return orderHistory.toString();
+    }
 
 
 //    void logout(){}
 
 
-    //TODO: activate orderHistory , orderHistoryToString(), logout()
+    //TODO: activate  orderHistoryToString(), logout()
 }
 
 

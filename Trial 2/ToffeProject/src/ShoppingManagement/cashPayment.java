@@ -1,11 +1,26 @@
 package src.ShoppingManagement;
+import src.UsersManagement.UsersDatabase;
+import src.UsersManagement.Customer;
 
-public class cashPayment extends payment {
-  //  private double cashAmount ;
+import java.util.Scanner;
+
+public class cashPayment {
+    Scanner in = new Scanner(System.in);
     private String phoneNumber;
     public cashPayment(){}
-    public void Pay() {
-        System.out.println("Amount to be payed in cash is :" + getAmount() + "EG pounds.");
+    public boolean Pay(String num) {
+        if(verifyPhoneNum(num)){
+
+        }
+
+    }
+
+    public double getAmount(Order order){
+        return order.getAmount();
+    }
+
+    public double calcLoyaltyPoints(double amount){
+        return 0.2*amount;
     }
 
     public boolean verifyPhoneNum(String number) {

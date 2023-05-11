@@ -1,4 +1,4 @@
-package UsersManagement;
+package src.UsersManagement;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -11,7 +11,6 @@ public class SystemApp {
     public SystemApp()
     {
         database = new UsersDatabase();
-        fillCustomers();
     }
     public boolean signup(String name, String pass, String mail, String number)
     {
@@ -43,13 +42,6 @@ public class SystemApp {
 
         String passPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,20}$";
         return Pattern.compile(passPattern).matcher(pass).matches();
-    }
-
-    public void fillCustomers()    /// used for testing
-    {
-        database.writeData("Mohamed", "12345", "m@gmail.com", "01234567890");
-        database.writeData("Ahmed", "98765", "A@gmail.com", "01034567890");
-        database.writeData("Smith", "24680", "S@gmail.com", "01134567890");
     }
     public void forgetPassword(){}
     public boolean mailExist(String mail)

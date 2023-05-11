@@ -1,6 +1,8 @@
 package src.ShoppingManagement;
 
 import src.ShoppingManagement.Product;
+import src.UsersManagement.Customer;
+
 import java.io.ObjectInputStream;
 import java.util.*;
 import java.io.BufferedWriter;
@@ -12,14 +14,16 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ProudctsCatalog {
-    private Vector<Product> products;
-    private String[] categories;
+    private static Vector<Product> products = null;
+    private static String[] categories;
 
     public ProudctsCatalog() {
-        products = new Vector<>();
+        if (products == null) {
+            loadCatalog();
+        }
     }
 
-    public void loadCatalog() {
+    public static void loadCatalog() {
         String fileName = "C:\\projects\\test\\src\\src\\catalog.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -45,40 +49,50 @@ public class ProudctsCatalog {
         }
     }
 
-    public void print() {
+    public static void print() {
         for (int i = 0; i < products.size(); i++) {
             System.out.println(products.get(i).getName() + ' ' + products.get(i).getId());
         }
     }
 
-    public void displayAll() {
+    public static void displayAll() {
+        System.out.println("ID - Name - Quantity - Price\n");
+        int cnt = 1;
         for (Product product : products) {
-            System.out.println(product.toString());
+            System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
         }
     }
 
-    public void displayByCategory(String category) {
+    public static void displayByCategory(String category) {
+        System.out.println("ID - Name - Quantity - Price\n");
+        int cnt = 1;
         for (Product product : products) {
             if (product.getCategory().equals(category)) {
-                System.out.println(product.toString());
+                System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
             }
         }
     }
 
-    public Product search(String name) {
+
+    public static Product search(String name) {
+        System.out.println("ID - Name - Quantity - Price\n");
+        int cnt = 1;
         for (Product product : products) {
             if (Objects.equals(product.getName(), name)) {
+                System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
                 return product;
             }
         }
         return null;
     }
 
-    public void updateProductQtyInStock(int editedProductId, int quantity) {
+    public static void updateProductQtyInStock(int editedProductId, int quantity) {
+        if (products == null) {
+            loadCatalog();
+        }
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == editedProductId) {
                 if (products.get(i).getQuantityInStock() - quantity < 0) {
-                    System.out.println("Not Enough!");
                     break;
                 }
                 products.get(i).setQuantityInStock(products.get(i).getQuantityInStock() - quantity);
@@ -101,7 +115,6 @@ public class ProudctsCatalog {
                 }
                 break;
             }
-
         }
     }
 
@@ -140,19 +153,12 @@ public class ProudctsCatalog {
     }*/
 
     // Getters and Setters
-    public Vector<Product> getProducts() {
+    public static Vector<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Vector<Product> products) {
-        this.products = products;
-    }
-
-    public String[] getCategories() {
+    public static String[] getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
-        this.categories = categories;
-    }
 }

@@ -10,8 +10,10 @@ public class Customer {
     private String username;
     private String email;
     private String password;
+
     private String phoneNum;
-    private double loyaltyPoints;
+    private double loyaltyPoints = 0;
+    private double balance = 0;
 
 
 
@@ -53,6 +55,22 @@ public class Customer {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
 //    void logout(){}

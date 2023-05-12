@@ -14,12 +14,13 @@ public class OrderedProduct {
         this.totalPrice = price;
     }
 
-    public void updateQuantity(int newQuantity) {
-        if(product.getQuantityInStock() <= newQuantity) {
+    public boolean updateQuantity(int newQuantity) {
+        if(product.getQuantityInStock() >= newQuantity) {
             this.quantity = newQuantity;
-        } else {
-            System.out.println("Not enough quantity in stock!");
+            totalPrice = newQuantity*this.product.getPrice();
+            return true;
         }
+        return false;
     }
 
     public void updateTotalPrice() {

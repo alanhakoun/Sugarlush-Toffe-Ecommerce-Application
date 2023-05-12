@@ -6,6 +6,9 @@ import src.UsersManagement.UsersDatabase;
 import src.ShoppingManagement.ProudctsCatalog;
 import src.ShoppingManagement.controller;
 
+import javax.mail.MessagingException;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GUI {
@@ -19,7 +22,7 @@ public class GUI {
     SystemApp app = new SystemApp();
     Scanner in = new Scanner(System.in);
 
-    public void generalPage() {
+    public void generalPage() throws IOException, MessagingException {
         while (true) {
             System.out.println("Welcome to our TOFFEE shop!\n" +
                     "Enter the number of the chosen option:\n" +
@@ -39,23 +42,46 @@ public class GUI {
                 System.out.println("Enter your password \n" +
                         "(including at least 1 uppercase 1 lowercase 1 digit, and at least 6 characters):");
                 String password = in.next();
-                if (app.signup(name, email, password, phone))
+                if (app.signup(name, password, email, phone))
                     System.out.println("Successful Sign up!");
                 else
                     System.out.println("Failed to Sign up!\n" +
                             "Check your email or password validity.\n");
+
+
             } else if (choice == 2) {
                 System.out.println("Enter your email:");
                 String email = in.next();
-                System.out.println("Enter your password: ");
+                System.out.println("Enter your password: \n" +
+                        "If you forgot your password, enter 'f' letter: ");
                 String password = in.next();
-                if (app.login(email, password)) {
-                    System.out.println("Successful Log in!\n");
-                    currentCustomer = usersDatabase.getCustomer(email);
-                    break;
-                } else
-                    System.out.println("Failed to Log in!\n" +
-                            "Check your email or password validity.\n");
+
+
+                if (password.equals("f")) {
+                    if (app.forgetPassword(email)) {
+                        System.out.println("Check your email, and enter the OTP:");
+                        int otp = in.nextInt();
+                        if (app.OTPValidity(otp)) {
+                            System.out.println("Successful verification!\n" +
+                                    "Enter the new password: ");
+                            String newPassword = in.next();
+                            app.changePassword(email, newPassword);
+                        } else {
+                            System.out.println("Verification Failed!\n");
+                        }
+                    } else {
+                        System.out.println("You don't have account, Please sign up!");
+                    }
+
+                } else {
+                    if (app.login(email, password)) {
+                        System.out.println("Successful Log in!\n");
+                        currentCustomer = usersDatabase.getCustomer(email);
+                        break;
+                    } else {
+                        System.out.println("Wrong mail/password!\n");
+                    }
+                }
             } else if (choice == 3) {
                 System.out.println("How do you want to view?\n" +
                         "Enter the number of the chosen option:\n" +
@@ -85,8 +111,9 @@ public class GUI {
         }
     }
 
-    public void addToCart(int id){
-        while (true){
+
+    public void addToCart(int id) {
+        while (true) {
             System.out.println("Enter item quantity:\n");
             int qty = in.nextInt();
             int result = controller.addItem(ProudctsCatalog.getProducts().get((id - 1)).getName(), qty);
@@ -96,7 +123,7 @@ public class GUI {
             } else if (result == -1) {
                 System.out.println("You cant add more than 50.\n");
             } else if (result == -2) {
-                System.out.println("Not enough quantity in stock. only:\n" + ("" + (ProudctsCatalog.getProducts().get((id - 1)).getQuantityInStock())));
+                System.out.println("Not enough quantity in stock. only:" + ("" + (ProudctsCatalog.getProducts().get((id - 1)).getQuantityInStock())));
             } else if (result == -3) {
                 System.out.println("Cant find item in catalog.\n");
             }
@@ -120,7 +147,7 @@ public class GUI {
 
 
             if (choice == 1) {
-                while (true){
+                while (true) {
                     System.out.println("How do you want to view?\n" +
                             "Enter the number of the chosen option:\n" +
                             "1- Display all.\n" +
@@ -144,18 +171,17 @@ public class GUI {
 
 
                     } else if (choose == 2) {
-                        while (true){
-                            System.out.println("Enter Category:\n");
-                            String category = in.next();
-                            ProudctsCatalog.displayByCategory(category);
-                            System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
-                            int id = in.nextInt();
-                            if (id != 0) {
-                                addToCart(id);
-                            } else {
-                                break;
-                            }
+                        System.out.println("Enter Category:\n");
+                        String category = in.next();
+                        ProudctsCatalog.displayByCategory(category);
+                        System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
+                        int id = in.nextInt();
+                        if (id != 0) {
+                            addToCart(id);
+                        } else {
+                            break;
                         }
+
 
                     } else if (choose == 3) {
                         System.out.println("Enter product name:\n");
@@ -170,11 +196,11 @@ public class GUI {
                         }
 
 
-                    } else if(choose == 4){
+                    } else if (choose == 4) {
                         break;
 
 
-                    }else {
+                    } else {
                         System.out.println("Wrong choice.\n" +
                                 "Press 0 to go back or any to continue displaying cart:\n");
                         int temp = in.nextInt();
@@ -191,16 +217,17 @@ public class GUI {
                     for (int i = 0; i < controller.getProducts().size(); i++) {
                         System.out.println(controller.getProducts().get(i).getProduct().getName() + " - " + controller.getProducts().get(i).getQuantity() + " - " + controller.getProducts().get(i).getTotalPrice());
                     }
-                    int choose = in.nextInt();
-                    System.out.println("Choose what to do next:\n" +
-                            "1- Place Order.\n" +
-                            "2- Update ordered item quantity.\n" +
-                            "3- Remove ordered item.\n" +
-                            "4- Go back.\n");
-                    while (true) {
 
+                    while (true) {
+                        System.out.println("Choose what to do next:\n" +
+                                "1- Place Order.\n" +
+                                "2- Update ordered item quantity.\n" +
+                                "3- Remove ordered item.\n" +
+                                "4- Go back.\n");
+                        int choose = in.nextInt();
 
                         if (choose == 1) {
+                            System.out.println("Your order has been placed.\n");
                             return controller.placeOrder();
 
 
@@ -219,7 +246,7 @@ public class GUI {
                                     } else if (result == -1) {
                                         System.out.println("You cant add more than 50.\n");
                                     } else if (result == -2) {
-                                        System.out.println("Not enough quantity in stock. only:\n" + ("" + (ProudctsCatalog.search(name).getQuantityInStock())));
+                                        System.out.println("Not enough quantity in stock. only: " + ("" + (ProudctsCatalog.search(name).getQuantityInStock())));
                                     } else if (result == -3) {
                                         System.out.println("Cant find item in ordered items.\n");
                                     }
@@ -275,7 +302,7 @@ public class GUI {
 
             } else if (choice == 3) {
                 currentCustomer = null;
-                return 1;
+                return 0;
 
             } else if (choice == 4) {
                 System.out.println("See you soon!\n");
@@ -285,16 +312,21 @@ public class GUI {
     }
 
     public void orderPage(int id) {
-        while (true){
+        while (true) {
             System.out.println("Choose what to do:\n" +
                     "1- Pay Order.\n" +
                     "2- Cancel ordered.\n" +
                     "3- Go back.\n");
             int choice = in.nextInt();
             if (choice == 1) {
-                controller.pay();
+                if (controller.pay((currentCustomer.getPhoneNum()), id)) {
+                    System.out.println("Your number has been verified.\n" +
+                            "Your order is ready to be shipped.\n");
+                }
+
             } else if (choice == 2) {
                 controller.cancelOrder(id);
+                System.out.println("Your order has been canceled.");
             } else if (choice == 3) {
                 return;
             } else {
@@ -309,16 +341,17 @@ public class GUI {
     }
 
 
-    public void view() {
+    public void view() throws IOException, MessagingException {
+        usersDatabase = new UsersDatabase();
+        catalog = new ProudctsCatalog();
         // registration and logging in to be put in GUI class after testing
-        while(true){
+        while (true) {
             if (currentCustomer != null) {
-                usersDatabase = new UsersDatabase();
-                catalog = new ProudctsCatalog();
+
                 controller = new controller(catalog, currentCustomer);
                 int result = loggedinPage();
-                if(result != 1){
-
+                if (result != 0) {
+                    orderPage(result);
                 }
 
             } else {

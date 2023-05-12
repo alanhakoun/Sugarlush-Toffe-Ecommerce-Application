@@ -1,9 +1,13 @@
 package src.UsersManagement;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Random;
+import java.util.Properties;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 
 public class SystemApp {
     private int otp;
@@ -12,16 +16,15 @@ public class SystemApp {
     {
         database = new UsersDatabase();
     }
-    public boolean signup(String name, String pass, String mail, String number)
-    {
-        if(!validateInfo(mail, pass))
+    public boolean signup(String name, String pass, String mail, String number) throws IOException {
+        if(!validateInfo(pass, mail))
             return false;
         database.writeData(name, pass, mail, number);
         return true;
     }
     public boolean login(String mail, String password)
     {
-        return database.authenticateUser(password, mail);
+        return database.authenticateUser(mail, password);
     }
     public boolean validateInfo(String pass, String mail)
     {
@@ -43,21 +46,49 @@ public class SystemApp {
         String passPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,20}$";
         return Pattern.compile(passPattern).matcher(pass).matches();
     }
-    public void forgetPassword(){}
+
     public boolean mailExist(String mail)
     {
         return database.find(mail);
     }
-    public void sendOTP()
-    {
+    public boolean forgetPassword(String mail) throws MessagingException {
+        if (this.mailExist(mail)) {
+            sendOTP(mail);
+            return true;
+        }
+        return false;
+    }
+
+    public void sendOTP(String mail) throws MessagingException {
         Random random = new Random();
         otp = random.nextInt(1000000);      // 6 digit otp
-        //TODO: send otp
 
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port",465);
+        properties.put("mail.smtp.ssl.enable", true);
+        properties.put("mail.smtp.auth", true);
+
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator(){
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication("sasooelbihery@gmail.com","bnwqzbztwdkyngjz");
+            }
+        });
+
+        String text = "Your OTP is: " + otp;
+        MimeMessage message = new MimeMessage(session);
+
+        message.setFrom(new InternetAddress("sasooelbihery@gmail.com"));
+
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+
+        message.setSubject("Verification");
+
+        message.setText(text);
+
+        Transport.send(message);
     }
-    public void changePassword(String mail, String pass)
-    {
-        database.updatePassword(mail, pass);
+    public void changePassword(String mail, String pass) throws IOException {
+        UsersDatabase.updatePassword(mail, pass);
     }
-    //TODO: forgetPassword
 }

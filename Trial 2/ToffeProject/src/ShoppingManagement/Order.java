@@ -11,7 +11,7 @@ public class Order {
     private Customer customer;
     private int orderID;
 
-    private static int cnt = 0;
+    private static int cnt = 1;
     private src.ShoppingManagement.OrderStatus orderStatus;
 
     private double amount;

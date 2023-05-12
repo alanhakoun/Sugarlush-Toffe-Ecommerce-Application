@@ -9,6 +9,8 @@ public class Customer {
 
     private String username;
     private String email;
+
+
     private String password;
 
     private String phoneNum;
@@ -32,12 +34,12 @@ public class Customer {
     public double getLoyaltyPoints(){
         return loyaltyPoints;
     }
-    String getPassword(){return password;}
+    public String getPassword(){return password;}
     public String getMail(){return email;}
     public void setPassword(String password) {
         this.password = password;
     }
-    String orderHistoryToString()
+    public String orderHistoryToString()
     {
         return orderHistory.toString();
     }
@@ -52,6 +54,11 @@ public class Customer {
     public String getUsername() {
         return username;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
 
     public void setUsername(String username) {
         this.username = username;

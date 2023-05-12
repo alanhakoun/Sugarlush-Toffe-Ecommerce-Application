@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Product {
     private int id;
-    static private int cnt = 0;
+    static private int cnt = 1;
     private String name;
     private String category;
 

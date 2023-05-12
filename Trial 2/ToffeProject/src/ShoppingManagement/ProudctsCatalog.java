@@ -19,12 +19,13 @@ public class ProudctsCatalog {
 
     public ProudctsCatalog() {
         if (products == null) {
+            products = new Vector<>();
             loadCatalog();
         }
     }
 
     public static void loadCatalog() {
-        String fileName = "C:\\projects\\test\\src\\src\\catalog.txt";
+        String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\ShoppingManagement\\catalog.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             Vector<String> productParts = new Vector<>();
@@ -56,30 +57,30 @@ public class ProudctsCatalog {
     }
 
     public static void displayAll() {
-        System.out.println("ID - Name - Quantity - Price\n");
-        int cnt = 1;
+        System.out.println("ID - Name - Quantity - Price - Category\n");
         for (Product product : products) {
-            System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
+            System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+            System.out.println("    Description: " + product.getDescription());
         }
     }
 
     public static void displayByCategory(String category) {
-        System.out.println("ID - Name - Quantity - Price\n");
-        int cnt = 1;
+        System.out.println("ID - Name - Quantity - Price - Category\n");
         for (Product product : products) {
             if (product.getCategory().equals(category)) {
-                System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+                System.out.println("    Description: " + product.getDescription());
             }
         }
     }
 
 
     public static Product search(String name) {
-        System.out.println("ID - Name - Quantity - Price\n");
-        int cnt = 1;
+        System.out.println("ID - Name - Quantity - Price - Category\n");
         for (Product product : products) {
             if (Objects.equals(product.getName(), name)) {
-                System.out.println(cnt++ + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice());
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+                System.out.println("    Description: " + product.getDescription());
                 return product;
             }
         }

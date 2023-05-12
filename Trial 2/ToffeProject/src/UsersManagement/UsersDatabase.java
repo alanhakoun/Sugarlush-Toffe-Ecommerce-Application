@@ -13,6 +13,7 @@ public class UsersDatabase {
 
     public UsersDatabase() {
         if (customers==null){
+            customers = new Vector<>();
             loadUsers();
         }
     }
@@ -22,37 +23,43 @@ public class UsersDatabase {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             Vector<String> userInfo = new Vector<>();
+            int cnt = 0;
             while ((line = reader.readLine()) != null) {
-
                 String[] parts = line.split(",");
                 for (String part : parts) {
                     userInfo.add(part.trim());
+                    cnt++;
                 }
-                Customer customer = new Customer(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3));
-                customer.setBalance(Double.parseDouble(userInfo.get(4)));
-                customer.setLoyaltyPoints(Double.parseDouble(userInfo.get(5)));
-                customers.add(customer);
-                userInfo.clear();
+
+                if(cnt == 6){
+                    Customer customer = new Customer(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3));
+                    customers.add(customer);
+                    userInfo.clear();
+                    cnt = 0;
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void print() {
+    public void print() {
         for (int i = 0; i < customers.size(); i++) {
             System.out.println(customers.get(i).getUsername() + ' ' + customers.get(i).getPassword());
         }
     }
 
     public static boolean authenticateUser(String mail, String password) {
-        for (Customer customer : customers)
-            if (Objects.equals(customer.getMail(), mail) && Objects.equals(customer.getPassword(), password))
+        for (int i = 0; i < customers.size(); i++) {
+            if((Objects.equals(customers.get(i).getMail(), mail))&&(Objects.equals(customers.get(i).getPassword(), password))){
                 return true;
+            }
+        }
         return false;
     }
 
-    public static void writeData(String name, String pass, String mail, String number) {
+    public static void writeData(String name, String pass, String mail, String number) throws IOException {
         Customer customer = new Customer(name, pass, mail, number);
         customers.add(customer);
         updateUserDatabase();
@@ -65,7 +72,7 @@ public class UsersDatabase {
         return false;
     }
 
-    public static void updatePassword(String mail, String pass) {
+    public static void updatePassword(String mail, String pass) throws IOException {
         for (Customer customer : customers)
             if (Objects.equals(customer.getMail(), mail)) {
                 customer.setPassword(pass);
@@ -74,13 +81,18 @@ public class UsersDatabase {
             }
     }
 
-    public static void updateUserDatabase() {
+    public static void updateUserDatabase() throws IOException {
         if(customers==null){
             loadUsers();
         }
+        String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\UsersManagement\\users.txt";
+        try (FileWriter fileWriter = new FileWriter(new File(fileName), false)) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < customers.size(); i++) {
-            String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\UsersManagement\\users.txt";
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,true))) {
                 writer.write(customers.get(i).getUsername() + ',');
                 writer.newLine();
                 writer.write(customers.get(i).getPassword() + ',');
@@ -97,14 +109,13 @@ public class UsersDatabase {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            break;
         }
     }
 
     public Customer getCustomer(String mail){
         Customer customer = null;
         for (int i = 0; i < customers.size(); i++) {
-            if(customers.get(i).getMail()==mail){
+            if(Objects.equals(customers.get(i).getMail(), mail)){
                 customer = customers.get(i);
             }
         }

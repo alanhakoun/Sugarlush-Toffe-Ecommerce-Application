@@ -22,15 +22,21 @@ public class controller {
 
     public int addItem(String itemName, int quantity) {
         if (quantity >= 0) {
-
-            for (int i = 0; i < catalog.getProducts().size(); i++) {
-                if (itemName == catalog.getProducts().get(i).getName()) {
-                    quantity = quantity > max ? -1 : (quantity>catalog.getProducts().get(i).getQuantityInStock() ? -2 : quantity);
+            for (int i = 0; i < ProudctsCatalog.getProducts().size(); i++) {
+                if (Objects.equals(itemName, ProudctsCatalog.getProducts().get(i).getName())) {
+                    quantity = quantity > max ? -1 : (quantity> ProudctsCatalog.getProducts().get(i).getQuantityInStock() ? -2 : quantity);
                     if(quantity<0){
                         return quantity;
                     }
-                    double totalPrice = catalog.getProducts().get(i).getPrice() * quantity;
-                    OrderedProduct temp = new OrderedProduct(catalog.getProducts().get(i), quantity, totalPrice);
+
+                    double totalPrice = ProudctsCatalog.getProducts().get(i).getPrice() * quantity;
+                    for (int j = 0; j < products.size(); j++) {
+                        if(Objects.equals(products.get(j).getProduct().getName(), itemName)){
+                            products.get(j).updateQuantity(products.get(j).getQuantity()+quantity);
+                            return 0;
+                        }
+                    }
+                    OrderedProduct temp = new OrderedProduct(ProudctsCatalog.getProducts().get(i), quantity, totalPrice);
                     products.add(temp);
                     return 0;
                 }
@@ -42,13 +48,14 @@ public class controller {
     public int updateOrderQty(String productName, int quantity) {
         if (quantity >= 0) {
             for (int i = 0; i < products.size(); i++) {
-                if (productName == products.get(i).getProduct().getName()) {
-                    quantity = quantity > max ? -1 : (quantity>catalog.getProducts().get(i).getQuantityInStock() ? -2 : quantity);
+                if (Objects.equals(productName, products.get(i).getProduct().getName())) {
+                    quantity = quantity > max ? -1 : (quantity> ProudctsCatalog.getProducts().get(i).getQuantityInStock() ? -2 : quantity);
                     if(quantity<0){
                         return quantity;
                     }
-                    products.get(i).updateQuantity(quantity);
-                    return 0;
+                    if(products.get(i).updateQuantity(quantity)) {
+                        return 0;
+                    }
                 }
             }
         }
@@ -58,7 +65,7 @@ public class controller {
     public boolean removeItem(String productName) {
         boolean flag = false;
         for (int i = 0; i < products.size(); i++) {
-            if (productName == products.get(i).getProduct().getName()) {
+            if (Objects.equals(productName, products.get(i).getProduct().getName())) {
                 products.remove(i);
                 flag = true;
                 break;
@@ -70,7 +77,6 @@ public class controller {
     public int placeOrder() {
         double total = 0;
         for (int i = 0; i < products.size(); i++) {
-            catalog.updateProductQtyInStock(products.get(i).getProduct().getId(), products.get(i).getQuantity());
             total += products.get(i).getTotalPrice();
         }
         Order order = new Order(products, customer, OrderStatus.CREATED, total);
@@ -80,17 +86,26 @@ public class controller {
 
 
     public boolean pay(String num, int id) {
-
+        cashPayment payOnDelivery = new cashPayment();
+        if(payOnDelivery.Pay(num)){
+            updateOrderStatus(id,OrderStatus.READY_TO_SHIP);
+            for (int i = 0; i < products.size(); i++) {
+                ProudctsCatalog.updateProductQtyInStock(products.get(i).getProduct().getId(), products.get(i).getQuantity());
+            }
+            return true;
+        }
+        return false;
     }
 
     public void updateOrderStatus(int orderId, OrderStatus newStatus) {
-        Order order = orders.get(orderId);
+        Order order = orders.get(orderId-1);
         order.setOrderStatus(newStatus);
     }
 
     public void cancelOrder(int orderId) {
         for (int i = 0; i < orders.size(); i++) {
             if (orderId == orders.get(i).getOrderID()) {
+                updateOrderStatus(orderId,OrderStatus.CANCELLED);
                 orders.remove(i);
                 break;
             }

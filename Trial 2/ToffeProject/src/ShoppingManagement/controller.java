@@ -9,9 +9,12 @@ public class controller {
     private final int max = 50;
     private ProudctsCatalog catalog;
     private Customer customer;
-    private Vector<Order> orders;
 
-    private Vector<OrderedProduct> products;
+
+
+    private Vector<Order> orders = null;
+
+    private Vector<OrderedProduct> products = null;
 
     public controller(ProudctsCatalog productsDatabase, Customer user) {
         catalog = productsDatabase;
@@ -74,21 +77,26 @@ public class controller {
         return flag;
     }
 
-    public int placeOrder() {
+    public int placeOrder(String address) {
         double total = 0;
-        for (int i = 0; i < products.size(); i++) {
-            total += products.get(i).getTotalPrice();
+        if(products.size()!=0){
+            for (int i = 0; i < products.size(); i++) {
+                total += products.get(i).getTotalPrice();
+            }
+            products.clear();
+            Order order = new Order(products, customer, OrderStatus.CREATED, total);
+            order.setAddress(address);
+            orders.add(order);
+            return order.getOrderID();
         }
-        Order order = new Order(products, customer, OrderStatus.CREATED, total);
-        orders.add(order);
-        return order.getOrderID();
+        return 0;
     }
 
 
     public boolean pay(String num, int id) {
         cashPayment payOnDelivery = new cashPayment();
         if(payOnDelivery.Pay(num)){
-            updateOrderStatus(id,OrderStatus.READY_TO_SHIP);
+            updateOrderStatus(id,OrderStatus.CLOSED);
             for (int i = 0; i < products.size(); i++) {
                 ProudctsCatalog.updateProductQtyInStock(products.get(i).getProduct().getId(), products.get(i).getQuantity());
             }
@@ -98,12 +106,12 @@ public class controller {
     }
 
     public void updateOrderStatus(int orderId, OrderStatus newStatus) {
-        Order order = orders.get(orderId-1);
+        Order order = orders.get(0);
         order.setOrderStatus(newStatus);
     }
 
     public void cancelOrder(int orderId) {
-        for (int i = 0; i < orders.size(); i++) {
+        for (int i = 0; i < 1; i++) {
             if (orderId == orders.get(i).getOrderID()) {
                 updateOrderStatus(orderId,OrderStatus.CANCELLED);
                 orders.remove(i);
@@ -112,18 +120,10 @@ public class controller {
         }
 
     }
-
+    public Vector<Order> getOrders() {
+        return orders;
+    }
     public Vector<OrderedProduct> getProducts() {
         return products;
-    }
-
-    public void setProducts(Vector<OrderedProduct> products) {
-        this.products = products;
-    }
-
-    public void setLoyaltyPoints(Customer customer, double orderAmount) {
-        cashPayment payment = new cashPayment();
-        double points = payment.calcLoyaltyPoints(orderAmount);
-        customer.setLoyaltyPoints(customer.getLoyaltyPoints() + points);
     }
 }

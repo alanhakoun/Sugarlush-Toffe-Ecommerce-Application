@@ -12,10 +12,16 @@ public class Order {
     private int orderID;
 
     private static int cnt = 1;
-    private src.ShoppingManagement.OrderStatus orderStatus;
+
+
+
+    private OrderStatus orderStatus;
 
     private double amount;
-    private double schemaVar = 5;
+
+
+
+    private String address;
 
     public Order(Vector<OrderedProduct> list, Customer customer, OrderStatus orderStatus, double amount) {
         this.orderID = cnt;
@@ -26,58 +32,23 @@ public class Order {
         this.orderStatus = orderStatus;
         this.amount = amount;
     }
-
-    public src.ShoppingManagement.OrderStatus getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return this.address;
     }
 
     public void setOrderStatus(src.ShoppingManagement.OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-//    public boolean paymentType() {
-//        if(paid){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
-    public void setSchemaVar(double schemaVar) {
-        this.schemaVar = schemaVar;
-    }
-
-
-    public double getSchemaVar() {
-        return schemaVar;
-    }
-
     public int getOrderID() {
         return orderID;
-    }
-
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Vector<OrderedProduct> getList() {
-        return list;
     }
 }
 

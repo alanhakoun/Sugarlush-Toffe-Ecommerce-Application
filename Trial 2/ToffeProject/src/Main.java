@@ -4,11 +4,6 @@ import src.ShoppingManagement.ProudctsCatalog;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
-/*import UsersManagement.UsersDatabase;
-import UsersManagement.SystemApp;
-import javax.xml.catalog.Catalog;
-import java.util.Scanner;
-import java.util.stream.Stream;*/
 
 
 public class Main {

@@ -14,11 +14,8 @@ import java.util.Scanner;
 public class GUI {
     private static UsersDatabase usersDatabase;
     private static ProudctsCatalog catalog;
-
     private static Customer currentCustomer = null;
-
     private static controller controller;
-
     SystemApp app = new SystemApp();
     Scanner in = new Scanner(System.in);
 
@@ -37,16 +34,26 @@ public class GUI {
                 String name = in.next();
                 System.out.println("Enter your email:");
                 String email = in.next();
+                System.out.println("Enter your address:");
+                String address = in.next();
                 System.out.println("Enter your phone number: ");
                 String phone = in.next();
                 System.out.println("Enter your password \n" +
                         "(including at least 1 uppercase 1 lowercase 1 digit, and at least 6 characters):");
                 String password = in.next();
-                if (app.signup(name, password, email, phone))
-                    System.out.println("Successful Sign up!");
+                app.sendOTP(email);
+                System.out.println("Check your email, and enter the OTP:");
+                int otp = in.nextInt();
+                if(app.OTPValidity(otp))
+                {
+                    if (app.signup(name, password, email, phone, address))
+                        System.out.println("Successful Sign up!");
+                    else
+                        System.out.println("Failed to Sign up!\n" +
+                                "Check your email or password validity.\n");
+                }
                 else
-                    System.out.println("Failed to Sign up!\n" +
-                            "Check your email or password validity.\n");
+                    System.out.println("Verification Failed!\n");
 
 
             } else if (choice == 2) {
@@ -87,7 +94,8 @@ public class GUI {
                         "Enter the number of the chosen option:\n" +
                         "1- Display all.\n" +
                         "2- Display by category.\n" +
-                        "3- Search.\n");
+                        "3- Search by name.\n" +
+                        "4- Search by brand.\n");
                 int choose = in.nextInt();
                 if (choose == 1) {
                     ProudctsCatalog.displayAll();
@@ -98,8 +106,12 @@ public class GUI {
                 } else if (choose == 3) {
                     System.out.println("Enter product name:\n");
                     String name = in.next();
-                    ProudctsCatalog.search(name);
-                } else {
+                    ProudctsCatalog.searchByName(name);
+                } else if(choose == 4){
+                    System.out.println("Enter product brand:\n");
+                    String brand = in.next();
+                    ProudctsCatalog.searchByBrand(brand);
+                }else{
                     System.out.println("Wrong choice\n");
                 }
             } else if (choice == 4) {
@@ -152,8 +164,9 @@ public class GUI {
                             "Enter the number of the chosen option:\n" +
                             "1- Display all.\n" +
                             "2- Display by category.\n" +
-                            "3- Search.\n" +
-                            "4- Go back.\n");
+                            "3- Search by name.\n" +
+                            "4- Search by brand.\n" +
+                            "5- Go back.\n");
                     int choose = in.nextInt();
 
 
@@ -186,7 +199,7 @@ public class GUI {
                     } else if (choose == 3) {
                         System.out.println("Enter product name:\n");
                         String name = in.next();
-                        ProudctsCatalog.search(name);
+                        ProudctsCatalog.searchByName(name);
                         System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
                         int id = in.nextInt();
                         if (id != 0) {
@@ -196,7 +209,18 @@ public class GUI {
                         }
 
 
-                    } else if (choose == 4) {
+                    } else if(choose == 4){
+                        System.out.println("Enter product brand:\n");
+                        String brand = in.next();
+                        ProudctsCatalog.searchByBrand(brand);
+                        System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
+                        int id = in.nextInt();
+                        if (id != 0) {
+                            addToCart(id);
+                        } else {
+                            break;
+                        }
+                    }else if (choose == 5) {
                         break;
 
 
@@ -227,8 +251,35 @@ public class GUI {
                         int choose = in.nextInt();
 
                         if (choose == 1) {
-                            System.out.println("Your order has been placed.\n");
-                            return controller.placeOrder();
+                            if(controller.getProducts()==null){
+                                System.out.println("Your cart is empty, cant place order.\n");
+                            } else {
+                                String address = currentCustomer.getAddress();
+                                while (true) {
+                                    System.out.println("Choose shipping address: \n" +
+                                            "1- Your current address.\n" +
+                                            "2- New address.\n");
+                                    int aChoice = in.nextInt();
+                                    if (aChoice == 1) {
+                                        address = currentCustomer.getAddress();
+                                        break;
+                                    } else if (aChoice == 2) {
+                                        System.out.println("Choose shipping address: \n");
+                                        address = in.next();
+                                        break;
+                                    } else {
+                                        System.out.println("Wrong choice.\n" +
+                                                "Press 0 to go back or any to re-specify address:\n");
+                                        int temp = in.nextInt();
+                                        if (temp == 0) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                System.out.println("Your order has been placed.\n");
+                                return controller.placeOrder(address);
+                            }
+
 
 
                         } else if (choose == 2) {
@@ -301,6 +352,7 @@ public class GUI {
 
 
             } else if (choice == 3) {
+                System.out.println("Logged out of " + currentCustomer.getUsername());
                 currentCustomer = null;
                 return 0;
 
@@ -321,7 +373,9 @@ public class GUI {
             if (choice == 1) {
                 if (controller.pay((currentCustomer.getPhoneNum()), id)) {
                     System.out.println("Your number has been verified.\n" +
-                            "Your order is ready to be shipped.\n");
+                            "Your order is being shipped to: " + controller.getOrders().get(0).getAddress() + "\nOrder status: " + controller.getOrders().get(0).getOrderStatus());
+                } else {
+                    System.out.println("Failed to verify your number.");
                 }
 
             } else if (choice == 2) {

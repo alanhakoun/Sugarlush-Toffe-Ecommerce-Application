@@ -1,7 +1,4 @@
 package src.ShoppingManagement;
-import src.UsersManagement.UsersDatabase;
-import src.UsersManagement.Customer;
-import src.ShoppingManagement.OtpSender;
 
 import java.util.Scanner;
 
@@ -20,14 +17,6 @@ public class cashPayment {
             }
         }
         return false;
-    }
-
-    public double getAmount(Order order){
-        return order.getAmount();
-    }
-
-    public double calcLoyaltyPoints(double amount){
-        return 0.2*amount;
     }
 
     public boolean validPhoneNum(String number) {

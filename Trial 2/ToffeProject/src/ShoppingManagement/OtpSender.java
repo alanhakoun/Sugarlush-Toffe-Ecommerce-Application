@@ -39,9 +39,6 @@ public class OtpSender {
                         new PhoneNumber(TWILIO_NUMBER),
                         "Your OTP is: " + otpSent)
                 .create();
-
-        // Print message SID
-//        System.out.println("Message SID: " + message.getSid());
     }
 
     public static int getOtpSent() {

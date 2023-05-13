@@ -1,9 +1,5 @@
 package src.ShoppingManagement;
 
-import src.ShoppingManagement.Product;
-import src.UsersManagement.Customer;
-
-import java.io.ObjectInputStream;
 import java.util.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,11 +7,9 @@ import java.io.IOException;
 import java.util.Vector;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class ProudctsCatalog {
     private static Vector<Product> products = null;
-    private static String[] categories;
 
     public ProudctsCatalog() {
         if (products == null) {
@@ -37,9 +31,9 @@ public class ProudctsCatalog {
                     productParts.add(part.trim());
                 }
                 cnt++;
-                if (cnt == 5) {
+                if (cnt == 6) {
                     Product product = new Product(productParts.get(0), productParts.get(1), Double.parseDouble(productParts.get(2)),
-                            Integer.parseInt(productParts.get(3)), productParts.get(4));
+                            Integer.parseInt(productParts.get(3)), productParts.get(4), productParts.get(5));
                     products.add(product);
                     productParts.clear();
                     cnt = 0;
@@ -50,41 +44,54 @@ public class ProudctsCatalog {
         }
     }
 
-    public static void print() {
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println(products.get(i).getName() + ' ' + products.get(i).getId());
-        }
-    }
-
     public static void displayAll() {
-        System.out.println("ID - Name - Quantity - Price - Category\n");
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
         for (Product product : products) {
-            System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+            System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
             System.out.println("    Description: " + product.getDescription());
         }
     }
 
     public static void displayByCategory(String category) {
-        System.out.println("ID - Name - Quantity - Price - Category\n");
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
         for (Product product : products) {
             if (product.getCategory().equals(category)) {
-                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
                 System.out.println("    Description: " + product.getDescription());
             }
         }
     }
 
 
-    public static Product search(String name) {
-        System.out.println("ID - Name - Quantity - Price - Category\n");
+    public static Product searchByName(String name) {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
         for (Product product : products) {
             if (Objects.equals(product.getName(), name)) {
-                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory());
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
                 System.out.println("    Description: " + product.getDescription());
                 return product;
             }
         }
         return null;
+    }
+
+    public static Product search(String name) {
+        for (Product product : products) {
+            if (Objects.equals(product.getName(), name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public static void searchByBrand(String brand) {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
+        for (Product product : products) {
+            if (Objects.equals(product.getBrand(), brand)) {
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
+                System.out.println("    Description: " + product.getDescription());
+            }
+        }
     }
 
     public static void updateProductQtyInStock(int editedProductId, int quantity) {
@@ -110,6 +117,8 @@ public class ProudctsCatalog {
                         writer.newLine();
                         writer.write(products.get(j).getCategory() + ',');
                         writer.newLine();
+                        writer.write(products.get(j).getBrand() + ',');
+                        writer.newLine();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -119,47 +128,9 @@ public class ProudctsCatalog {
         }
     }
 
-   /*  public void addItem(Product product) {
-        Product[] newProducts = new Product[products.length + 1];
-        System.arraycopy(products, 0, newProducts, 0, products.length);
-        newProducts[newProducts.length - 1] = product;
-        products = newProducts;
-    }
-
-   public void cancelItem(int productId) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == productId) {
-                Product[] newProducts = new Product[products.size() - 1];
-                System.arraycopy(products, 0, newProducts, 0, i);
-                System.arraycopy(products, i + 1, newProducts, i, products.size() - i - 1);
-                products = newProducts;
-                break;
-            }
-        }
-    }
-
-    public void updateItem(int productId, Product updatedProduct) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == productId) {
-                products.set(i, updatedProduct);
-                break;
-            }
-        }
-    }
-
-    public void addOffers(double discount) {
-        for (Product product : products) {
-            product.setPrice(product.getPrice() * (1 - discount));
-        }
-    }*/
-
     // Getters and Setters
     public static Vector<Product> getProducts() {
         return products;
     }
-
-    public static String[] getCategories() {
-        return categories;
-    }
-
 }
+

@@ -2,9 +2,6 @@ package src.ShoppingManagement;
 public class OrderedProduct {
 
     private Product product;
-
-
-
     private int quantity;
     private double totalPrice;
 
@@ -22,30 +19,15 @@ public class OrderedProduct {
         }
         return false;
     }
-
-    public void updateTotalPrice() {
-        this.totalPrice = quantity* product.getPrice();
-    }
     public Product getProduct() {
         return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public double getTotalPrice() {
         return this.totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
     public int getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

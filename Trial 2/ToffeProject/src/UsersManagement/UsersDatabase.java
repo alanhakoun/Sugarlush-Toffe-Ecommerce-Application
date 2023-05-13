@@ -1,9 +1,5 @@
 package src.UsersManagement;
 
-import src.ShoppingManagement.Order;
-import src.ShoppingManagement.OrderedProduct;
-import src.ShoppingManagement.Product;
-
 import java.io.*;
 import java.util.Objects;
 import java.util.Vector;
@@ -31,8 +27,8 @@ public class UsersDatabase {
                     cnt++;
                 }
 
-                if(cnt == 6){
-                    Customer customer = new Customer(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3));
+                if(cnt == 5){
+                    Customer customer = new Customer(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3), userInfo.get(4));
                     customers.add(customer);
                     userInfo.clear();
                     cnt = 0;
@@ -59,8 +55,8 @@ public class UsersDatabase {
         return false;
     }
 
-    public static void writeData(String name, String pass, String mail, String number) throws IOException {
-        Customer customer = new Customer(name, pass, mail, number);
+    public static void writeData(String name, String pass, String mail, String number, String address) throws IOException {
+        Customer customer = new Customer(name, pass, mail, number, address);
         customers.add(customer);
         updateUserDatabase();
     }
@@ -101,9 +97,7 @@ public class UsersDatabase {
                 writer.newLine();
                 writer.write(customers.get(i).getPhoneNum() + ',');
                 writer.newLine();
-                writer.write("" + (customers.get(i).getBalance()) + ',');
-                writer.newLine();
-                writer.write("" + (customers.get(i).getLoyaltyPoints()) + ',');
+                writer.write(customers.get(i).getAddress() + ',');
                 writer.newLine();
 
             } catch (IOException e) {

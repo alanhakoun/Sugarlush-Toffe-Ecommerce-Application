@@ -9,81 +9,36 @@ public class Customer {
 
     private String username;
     private String email;
-
-
     private String password;
-
     private String phoneNum;
-    private double loyaltyPoints = 0;
-    private double balance = 0;
+    private String address;
 
 
-
-    private Vector<Order> orderHistory;
-
-    public Customer(String name, String pass, String mail, String number)
+    public Customer(String name, String pass, String mail, String number, String address)
     {
-        username = name;
-        password = pass;
-        email = mail;
-        phoneNum = number;
-    }
-    public void setLoyaltyPoints(double loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
-    }
-    public double getLoyaltyPoints(){
-        return loyaltyPoints;
+        this.username = name;
+        this.password = pass;
+        this.email = mail;
+        this.phoneNum = number;
+        this.address = address;
     }
     public String getPassword(){return password;}
     public String getMail(){return email;}
     public void setPassword(String password) {
         this.password = password;
     }
-    public String orderHistoryToString()
-    {
-        return orderHistory.toString();
-    }
-
-    public Vector<Order> getOrderHistory() {
-        return orderHistory;
-    }
-
-    public void setOrderHistory(Vector<Order> orderHistory) {
-        this.orderHistory = orderHistory;
-    }
     public String getUsername() {
         return username;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public String getPhoneNum() {
         return phoneNum;
     }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public String getAddress() {
+        return address;
     }
-
-//    void logout(){}
-
-
-    //TODO: activate  orderHistoryToString(), logout()
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
 
 

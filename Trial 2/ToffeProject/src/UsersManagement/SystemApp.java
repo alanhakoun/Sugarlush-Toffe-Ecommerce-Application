@@ -16,10 +16,10 @@ public class SystemApp {
     {
         database = new UsersDatabase();
     }
-    public boolean signup(String name, String pass, String mail, String number) throws IOException {
+    public boolean signup(String name, String pass, String mail, String number, String address) throws IOException, MessagingException {
         if(!validateInfo(pass, mail))
             return false;
-        database.writeData(name, pass, mail, number);
+        database.writeData(name, pass, mail, number, address);
         return true;
     }
     public boolean login(String mail, String password)

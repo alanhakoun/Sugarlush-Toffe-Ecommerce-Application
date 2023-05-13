@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"src.GUIManagement"},{"l":"src.Main"},{"l":"src.ShoppingManagement"},{"l":"src.UsersManagement"}];updateSearchResults();

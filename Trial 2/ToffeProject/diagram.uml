@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="307.5" y="1429.5">src.ShoppingManagement.OtpSender</node>
+    <node x="-77.5" y="316.5">src.ShoppingManagement.OrderedProduct</node>
+    <node x="529.5" y="666.5">src.UsersManagement.UsersDatabase</node>
+    <node x="-519.5" y="654.5">src.ShoppingManagement.ProudctsCatalog</node>
+    <node x="-310.0" y="372.5">src.ShoppingManagement.OrderStatus</node>
+    <node x="-211.5" y="688.0">src.ShoppingManagement.Order</node>
+    <node x="278.5" y="721.5">src.ShoppingManagement.cashPayment</node>
+    <node x="54.0" y="1012.5">src.ShoppingManagement.controller</node>
+    <node x="486.5" y="1035.5">src.UsersManagement.SystemApp</node>
+    <node x="521.0" y="294.0">src.UsersManagement.Customer</node>
+    <node x="-527.0" y="-180.0">src.ShoppingManagement.Product</node>
+    <node x="132.0" y="1419.5">src.GUIManagement.GUI</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.GUIManagement.GUI" target="src.UsersManagement.SystemApp" relationship="CREATE">
+      <point x="0.0" y="82.5" />
+      <point x="209.0" y="1632.0" />
+      <point x="679.0" y="1632.0" />
+      <point x="30.0" y="126.5" />
+    </edge>
+    <edge source="src.UsersManagement.UsersDatabase" target="src.UsersManagement.Customer" relationship="TO_MANY">
+      <point x="0.0" y="115.5" />
+      <point x="689.0" y="955.0" />
+      <point x="866.0" y="955.0" />
+      <point x="866.0" y="422.0" />
+      <point x="148.0" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.Order" relationship="CREATE">
+      <point x="-135.0" y="0.0" />
+      <point x="-26.0" y="1162.0" />
+      <point x="-15.0" y="94.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.Order" target="src.UsersManagement.Customer" relationship="TO_ONE">
+      <point x="0.0" y="94.0" />
+      <point x="-11.0" y="955.0" />
+      <point x="866.0" y="955.0" />
+      <point x="866.0" y="422.0" />
+      <point x="148.0" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.OrderedProduct" relationship="CREATE">
+      <point x="43.5" y="-149.5" />
+      <point x="232.5" y="407.0" />
+      <point x="126.5" y="-15.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.ProudctsCatalog" target="src.ShoppingManagement.Product" relationship="CREATE">
+      <point x="20.0" y="-127.5" />
+      <point x="0.0" y="182.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.OrderedProduct" target="src.ShoppingManagement.Product" relationship="TO_ONE">
+      <point x="-126.5" y="0.0" />
+      <point x="-94.0" y="422.0" />
+      <point x="-94.0" y="2.0" />
+      <point x="156.0" y="0.0" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.ShoppingManagement.controller" relationship="TO_ONE">
+      <point x="30.0" y="-82.5" />
+      <point x="50.0" y="149.5" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.UsersManagement.Customer" relationship="TO_ONE">
+      <point x="-77.0" y="0.0" />
+      <point x="36.5" y="1502.0" />
+      <point x="36.5" y="955.0" />
+      <point x="866.0" y="955.0" />
+      <point x="866.0" y="422.0" />
+      <point x="148.0" y="0.0" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.UsersManagement.UsersDatabase" relationship="CREATE">
+      <point x="0.0" y="-82.5" />
+      <point x="209.0" y="1329.0" />
+      <point x="839.0" y="1329.0" />
+      <point x="839.0" y="1264.0" />
+      <point x="881.0" y="1264.0" />
+      <point x="881.0" y="782.0" />
+      <point x="159.5" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.Order" target="src.ShoppingManagement.OrderedProduct" relationship="TO_MANY">
+      <point x="0.0" y="-94.0" />
+      <point x="-11.0" y="545.0" />
+      <point x="198.0" y="545.0" />
+      <point x="198.0" y="422.0" />
+      <point x="126.5" y="0.0" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.ShoppingManagement.ProudctsCatalog" relationship="CREATE">
+      <point x="-77.0" y="30.0" />
+      <point x="-406.0" y="1532.0" />
+      <point x="-15.0" y="127.5" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.cashPayment" relationship="CREATE">
+      <point x="127.5" y="-149.5" />
+      <point x="-72.5" y="60.5" />
+    </edge>
+    <edge source="src.UsersManagement.SystemApp" target="src.UsersManagement.UsersDatabase" relationship="CREATE">
+      <point x="162.5" y="0.0" />
+      <point x="839.0" y="1162.0" />
+      <point x="839.0" y="1264.0" />
+      <point x="881.0" y="1264.0" />
+      <point x="881.0" y="782.0" />
+      <point x="159.5" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.Order" target="src.ShoppingManagement.OrderStatus" relationship="TO_ONE">
+      <point x="-193.0" y="-94.0" />
+      <point x="7.0" y="49.5" />
+    </edge>
+    <edge source="src.UsersManagement.UsersDatabase" target="src.UsersManagement.Customer" relationship="CREATE">
+      <point x="-20.0" y="-115.5" />
+      <point x="0.0" y="128.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.UsersManagement.Customer" relationship="TO_ONE">
+      <point x="0.0" y="-149.5" />
+      <point x="189.0" y="955.0" />
+      <point x="866.0" y="955.0" />
+      <point x="866.0" y="422.0" />
+      <point x="148.0" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.Order" relationship="TO_MANY">
+      <point x="-30.0" y="-149.5" />
+      <point x="170.0" y="94.0" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.UsersManagement.SystemApp" relationship="TO_ONE">
+      <point x="15.0" y="82.5" />
+      <point x="224.0" y="1617.0" />
+      <point x="664.0" y="1617.0" />
+      <point x="15.0" y="126.5" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.OrderedProduct" relationship="TO_MANY">
+      <point x="28.5" y="-149.5" />
+      <point x="217.5" y="479.5" />
+      <point x="198.0" y="479.5" />
+      <point x="198.0" y="422.0" />
+      <point x="126.5" y="0.0" />
+    </edge>
+    <edge source="src.ShoppingManagement.ProudctsCatalog" target="src.ShoppingManagement.Product" relationship="TO_MANY">
+      <point x="128.5" y="-116.5" />
+      <point x="-94.0" y="665.5" />
+      <point x="-94.0" y="2.0" />
+      <point x="156.0" y="0.0" />
+    </edge>
+    <edge source="src.UsersManagement.SystemApp" target="src.UsersManagement.UsersDatabase" relationship="TO_ONE">
+      <point x="-162.5" y="0.0" />
+      <point x="406.0" y="1162.0" />
+      <point x="406.0" y="865.5" />
+      <point x="-159.5" y="83.5" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.ShoppingManagement.ProudctsCatalog" relationship="TO_ONE">
+      <point x="-77.0" y="15.0" />
+      <point x="-97.5" y="1517.0" />
+      <point x="-97.5" y="984.0" />
+      <point x="-391.0" y="984.0" />
+      <point x="0.0" y="127.5" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.UsersManagement.UsersDatabase" relationship="TO_ONE">
+      <point x="15.0" y="-82.5" />
+      <point x="224.0" y="1344.0" />
+      <point x="406.0" y="1344.0" />
+      <point x="406.0" y="865.5" />
+      <point x="-159.5" y="83.5" />
+    </edge>
+    <edge source="src.GUIManagement.GUI" target="src.ShoppingManagement.controller" relationship="CREATE">
+      <point x="-20.0" y="-82.5" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="src.ShoppingManagement.controller" target="src.ShoppingManagement.ProudctsCatalog" relationship="TO_ONE">
+      <point x="-15.0" y="-149.5" />
+      <point x="174.0" y="984.0" />
+      <point x="-391.0" y="984.0" />
+      <point x="0.0" y="127.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.36134453781512615" showDependencies="true" x="181.0" y="295.8372093023254" />
+  <SelectedNodes>
+    <node>src.ShoppingManagement.OtpSender</node>
+    <node>src.ShoppingManagement.ProudctsCatalog</node>
+    <node>src.ShoppingManagement.OrderStatus</node>
+    <node>src.ShoppingManagement.controller</node>
+    <node>src.UsersManagement.Customer</node>
+    <node>src.UsersManagement.SystemApp</node>
+    <node>src.GUIManagement.GUI</node>
+    <node>src.ShoppingManagement.Product</node>
+    <node>src.ShoppingManagement.OrderedProduct</node>
+    <node>src.UsersManagement.UsersDatabase</node>
+    <node>src.ShoppingManagement.Order</node>
+    <node>src.ShoppingManagement.cashPayment</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

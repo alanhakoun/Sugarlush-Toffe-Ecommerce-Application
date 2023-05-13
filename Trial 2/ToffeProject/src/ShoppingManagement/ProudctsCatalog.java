@@ -19,7 +19,7 @@ public class ProudctsCatalog {
     }
 
     public static void loadCatalog() {
-        String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\ShoppingManagement\\catalog.txt";
+        String fileName = "catalog.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             Vector<String> productParts = new Vector<>();
@@ -104,7 +104,7 @@ public class ProudctsCatalog {
                     break;
                 }
                 products.get(i).setQuantityInStock(products.get(i).getQuantityInStock() - quantity);
-                String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\ShoppingManagement\\catalog.txt";
+                String fileName = "catalog.txt";
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                     for (int j = 0; j < products.size(); j++) {
                         writer.write(products.get(j).getName() + ',');

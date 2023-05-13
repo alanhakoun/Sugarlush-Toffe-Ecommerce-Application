@@ -15,7 +15,7 @@ public class UsersDatabase {
     }
 
     public static void loadUsers() {
-        String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\UsersManagement\\users.txt";
+        String fileName = "users.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             Vector<String> userInfo = new Vector<>();
@@ -81,7 +81,7 @@ public class UsersDatabase {
         if(customers==null){
             loadUsers();
         }
-        String fileName = "C:\\Users\\alanh\\Documents\\GitHub\\SW-Assignment-2\\Trial 2\\ToffeProject\\src\\UsersManagement\\users.txt";
+        String fileName = "users.txt";
         try (FileWriter fileWriter = new FileWriter(new File(fileName), false)) {
 
         } catch (IOException e) {

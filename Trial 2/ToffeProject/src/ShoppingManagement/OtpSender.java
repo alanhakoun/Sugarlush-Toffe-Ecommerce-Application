@@ -6,6 +6,9 @@ import com.twilio.type.PhoneNumber;
 
 import java.util.Random;
 
+/**
+ * It’s the class responsible for sending an OTP to the mobile number in the cash payment case to verify the customer's number. It’s sending SMS to numbers which only verified on Twilio.
+ */
 public class OtpSender {
 
     // Twilio Account SID and Auth Token
@@ -14,8 +17,6 @@ public class OtpSender {
 
     // Twilio phone number
     private static final String TWILIO_NUMBER = "+12707180828";
-
-
 
     private static int otpSent;
 

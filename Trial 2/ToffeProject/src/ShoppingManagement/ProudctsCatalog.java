@@ -8,6 +8,9 @@ import java.util.Vector;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * Represents the collection of all products that are available for purchase in the database and update the database after each order.
+ */
 public class ProudctsCatalog {
     private static Vector<Product> products = null;
 
@@ -18,6 +21,10 @@ public class ProudctsCatalog {
         }
     }
 
+    /**
+     *
+     * load the catalog data from text file.
+     */
     public static void loadCatalog() {
         String fileName = "catalog.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -43,38 +50,11 @@ public class ProudctsCatalog {
             e.printStackTrace();
         }
     }
-
-    public static void displayAll() {
-        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
-        for (Product product : products) {
-            System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
-            System.out.println("    Description: " + product.getDescription());
-        }
-    }
-
-    public static void displayByCategory(String category) {
-        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
-        for (Product product : products) {
-            if (product.getCategory().equals(category)) {
-                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
-                System.out.println("    Description: " + product.getDescription());
-            }
-        }
-    }
-
-
-    public static Product searchByName(String name) {
-        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
-        for (Product product : products) {
-            if (Objects.equals(product.getName(), name)) {
-                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
-                System.out.println("    Description: " + product.getDescription());
-                return product;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * searches for a product in the catalog.
+     * @param name name to search about.
+     * @return product found.
+     */
     public static Product search(String name) {
         for (Product product : products) {
             if (Objects.equals(product.getName(), name)) {
@@ -83,17 +63,11 @@ public class ProudctsCatalog {
         }
         return null;
     }
-
-    public static void searchByBrand(String brand) {
-        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
-        for (Product product : products) {
-            if (Objects.equals(product.getBrand(), brand)) {
-                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
-                System.out.println("    Description: " + product.getDescription());
-            }
-        }
-    }
-
+    /**
+     * updates the product quantity in stock when added to cart/ordered and rewrites the catalog file.
+     * @param editedProductId product ID chosen
+     * @param quantity to be edited with.
+     */
     public static void updateProductQtyInStock(int editedProductId, int quantity) {
         if (products == null) {
             loadCatalog();
@@ -128,7 +102,7 @@ public class ProudctsCatalog {
         }
     }
 
-    // Getters and Setters
+    /** Getters and Setters*/
     public static Vector<Product> getProducts() {
         return products;
     }

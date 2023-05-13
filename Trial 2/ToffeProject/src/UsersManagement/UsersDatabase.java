@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.Objects;
 import java.util.Vector;
 
+/**
+ * Represents the database of the user.
+ */
 public class UsersDatabase {
     private static Vector<Customer> customers = null;
 
@@ -14,6 +17,9 @@ public class UsersDatabase {
         }
     }
 
+    /**
+     * loads the users data from the file.
+     */
     public static void loadUsers() {
         String fileName = "users.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -40,12 +46,12 @@ public class UsersDatabase {
         }
     }
 
-    public void print() {
-        for (int i = 0; i < customers.size(); i++) {
-            System.out.println(customers.get(i).getUsername() + ' ' + customers.get(i).getPassword());
-        }
-    }
-
+    /**
+     * authenticate teh user while logging in .
+     * @param mail customer entered mail.
+     * @param password customer entered pass.
+     * @return true if user is registered, false otherwise.
+     */
     public static boolean authenticateUser(String mail, String password) {
         for (int i = 0; i < customers.size(); i++) {
             if((Objects.equals(customers.get(i).getMail(), mail))&&(Objects.equals(customers.get(i).getPassword(), password))){
@@ -55,12 +61,26 @@ public class UsersDatabase {
         return false;
     }
 
+    /**
+     * writes user data back into the file.
+     * @param name customer name .
+     * @param pass customer password.
+     * @param mail customer email.
+     * @param number customer number.
+     * @param address customer address.
+     * @throws IOException
+     */
     public static void writeData(String name, String pass, String mail, String number, String address) throws IOException {
         Customer customer = new Customer(name, pass, mail, number, address);
         customers.add(customer);
         updateUserDatabase();
     }
 
+    /**
+     * searches for a customer in the database.
+     * @param mail customer email.
+     * @return true if found , false otherwise.
+     */
     public static boolean find(String mail) {
         for (Customer customer : customers)
             if (Objects.equals(customer.getMail(), mail))
@@ -68,6 +88,12 @@ public class UsersDatabase {
         return false;
     }
 
+    /**
+     * updates the password after changing it.
+     * @param mail customer email.
+     * @param pass customer password.
+     * @throws IOException
+     */
     public static void updatePassword(String mail, String pass) throws IOException {
         for (Customer customer : customers)
             if (Objects.equals(customer.getMail(), mail)) {
@@ -77,6 +103,10 @@ public class UsersDatabase {
             }
     }
 
+    /**
+     * updates the user info stored after editing it.
+     * @throws IOException
+     */
     public static void updateUserDatabase() throws IOException {
         if(customers==null){
             loadUsers();
@@ -106,6 +136,11 @@ public class UsersDatabase {
         }
     }
 
+    /**
+     * gets the customer
+     * @param mail customer email.
+     * @return customer .
+     */
     public Customer getCustomer(String mail){
         Customer customer = null;
         for (int i = 0; i < customers.size(); i++) {

@@ -1,5 +1,6 @@
 package src.GUIManagement;
 
+import src.ShoppingManagement.Product;
 import src.UsersManagement.SystemApp;
 import src.UsersManagement.Customer;
 import src.UsersManagement.UsersDatabase;
@@ -9,8 +10,12 @@ import src.ShoppingManagement.controller;
 import javax.mail.MessagingException;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Illustrates the class that deals with the user interface of a customer and connects to application features. It has a direct relationship with the system app, controller and catalog.
+ */
 public class GUI {
     private static UsersDatabase usersDatabase;
     private static ProudctsCatalog catalog;
@@ -19,6 +24,67 @@ public class GUI {
     SystemApp app = new SystemApp();
     Scanner in = new Scanner(System.in);
 
+    /**
+     * display the whole catalog.
+     */
+    public static void displayAll() {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
+        for (Product product : ProudctsCatalog.getProducts()) {
+            System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
+            System.out.println("    Description: " + product.getDescription());
+        }
+    }
+
+    /**
+     * Displays the products by category
+     * @param category category to search with.
+     */
+    public static void displayByCategory(String category) {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
+        for (Product product :  ProudctsCatalog.getProducts()) {
+            if (product.getCategory().equals(category)) {
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
+                System.out.println("    Description: " + product.getDescription());
+            }
+        }
+    }
+
+    /**
+     * searches for a product by its name in the catalog
+     * @param name name to search with.
+     * @return product with the specific name given.
+     */
+    public static Product searchByName(String name) {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
+        for (Product product :  ProudctsCatalog.getProducts()) {
+            if (Objects.equals(product.getName(), name)) {
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
+                System.out.println("    Description: " + product.getDescription());
+                return product;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * searches for a product by its name in the catalog
+     * @param brand brand to search with.
+     */
+    public static void searchByBrand(String brand) {
+        System.out.println("ID - Name - Quantity - Price - Category - Brand\n");
+        for (Product product :  ProudctsCatalog.getProducts()) {
+            if (Objects.equals(product.getBrand(), brand)) {
+                System.out.println(product.getId() + " - " + product.getName() + " - " + product.getQuantityInStock() + " - " + product.getPrice() + " - " + product.getCategory() + " - " + product.getBrand());
+                System.out.println("    Description: " + product.getDescription());
+            }
+        }
+    }
+
+    /**
+     * This is the page the general customer would view : he could Sign up , login , view catalog or just Exit the program.
+     * @throws IOException
+     * @throws MessagingException
+     */
     public void generalPage() throws IOException, MessagingException {
         while (true) {
             System.out.println("Welcome to our TOFFEE shop!\n" +
@@ -98,19 +164,19 @@ public class GUI {
                         "4- Search by brand.\n");
                 int choose = in.nextInt();
                 if (choose == 1) {
-                    ProudctsCatalog.displayAll();
+                    displayAll();
                 } else if (choose == 2) {
                     System.out.println("Enter Category:\n");
                     String category = in.next();
-                    ProudctsCatalog.displayByCategory(category);
+                    displayByCategory(category);
                 } else if (choose == 3) {
                     System.out.println("Enter product name:\n");
                     String name = in.next();
-                    ProudctsCatalog.searchByName(name);
+                   searchByName(name);
                 } else if(choose == 4){
                     System.out.println("Enter product brand:\n");
                     String brand = in.next();
-                    ProudctsCatalog.searchByBrand(brand);
+                    searchByBrand(brand);
                 }else{
                     System.out.println("Wrong choice\n");
                 }
@@ -124,6 +190,10 @@ public class GUI {
     }
 
 
+    /**
+     * This is adding to cart functions that add the product and its quantity after the customer is logged in
+     * @param id product ID to add into cart .
+     */
     public void addToCart(int id) {
         while (true) {
             System.out.println("Enter item quantity:\n");
@@ -147,6 +217,10 @@ public class GUI {
         }
     }
 
+    /**
+     * As the customer is logged in he can view the following options and traverse through the application : Display catalog or cart , Loging out or exiting the program
+     * @return
+     */
     public int loggedinPage() {
         while (true) {
             System.out.println("What do you want to do?\n" +
@@ -171,7 +245,7 @@ public class GUI {
 
 
                     if (choose == 1) {
-                        ProudctsCatalog.displayAll();
+                        displayAll();
                         while (true) {
                             System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
                             int id = in.nextInt();
@@ -186,7 +260,7 @@ public class GUI {
                     } else if (choose == 2) {
                         System.out.println("Enter Category:\n");
                         String category = in.next();
-                        ProudctsCatalog.displayByCategory(category);
+                        displayByCategory(category);
                         System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
                         int id = in.nextInt();
                         if (id != 0) {
@@ -199,7 +273,7 @@ public class GUI {
                     } else if (choose == 3) {
                         System.out.println("Enter product name:\n");
                         String name = in.next();
-                        ProudctsCatalog.searchByName(name);
+                        searchByName(name);
                         System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
                         int id = in.nextInt();
                         if (id != 0) {
@@ -212,7 +286,7 @@ public class GUI {
                     } else if(choose == 4){
                         System.out.println("Enter product brand:\n");
                         String brand = in.next();
-                        ProudctsCatalog.searchByBrand(brand);
+                        searchByBrand(brand);
                         System.out.println("Enter item ID that you want to add to cart or 0 to continue:\n");
                         int id = in.nextInt();
                         if (id != 0) {
@@ -264,7 +338,7 @@ public class GUI {
                                         address = currentCustomer.getAddress();
                                         break;
                                     } else if (aChoice == 2) {
-                                        System.out.println("Choose shipping address: \n");
+                                        System.out.println("Enter New shipping address: \n");
                                         address = in.next();
                                         break;
                                     } else {
@@ -363,6 +437,10 @@ public class GUI {
         }
     }
 
+    /**
+     * This is the order page , after placing the order, the customer could pay, cancel his order.
+     * @param id Order ID to perform actions on it.
+     */
     public void orderPage(int id) {
         while (true) {
             System.out.println("Choose what to do:\n" +
@@ -370,13 +448,15 @@ public class GUI {
                     "2- Cancel ordered.\n" +
                     "3- Go back.\n");
             int choice = in.nextInt();
+            // Please un comment this part of the code to test sending SMS OTP if you have a verified Towillio number.
+            // else you won't be able to test this part.
             if (choice == 1) {
-                if (controller.pay((currentCustomer.getPhoneNum()), id)) {
-                    System.out.println("Your number has been verified.\n" +
-                            "Your order is being shipped to: " + controller.getOrders().get(0).getAddress() + "\nOrder status: " + controller.getOrders().get(0).getOrderStatus());
-                } else {
+                /*if (controller.pay((currentCustomer.getPhoneNum()), id)) {
+                    System.out.println("Your number has been verified.\n");*/
+                    System.out.println("Your order is being shipped to: " + controller.getOrders().get(0).getAddress() + "\nOrder status: " + controller.getOrders().get(0).getOrderStatus());
+                /*} else {
                     System.out.println("Failed to verify your number.");
-                }
+                }*/
 
             } else if (choice == 2) {
                 controller.cancelOrder(id);
@@ -394,7 +474,11 @@ public class GUI {
         }
     }
 
-
+    /**
+     * This is the main funcyion that runs teh GUI functions of several pages .
+     * @throws IOException
+     * @throws MessagingException
+     */
     public void view() throws IOException, MessagingException {
         usersDatabase = new UsersDatabase();
         catalog = new ProudctsCatalog();

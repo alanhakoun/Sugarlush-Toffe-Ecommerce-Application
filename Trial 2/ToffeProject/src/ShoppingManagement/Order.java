@@ -4,6 +4,9 @@ import src.UsersManagement.Customer;
 
 import java.util.*;
 
+/**
+ * It illustrates an order in the application. Each order has an id and contains information such as the address and status.
+ */
 public class Order {
 
     private Vector<OrderedProduct> list;
@@ -13,13 +16,9 @@ public class Order {
 
     private static int cnt = 1;
 
-
-
     private OrderStatus orderStatus;
 
     private double amount;
-
-
 
     private String address;
 
@@ -32,6 +31,8 @@ public class Order {
         this.orderStatus = orderStatus;
         this.amount = amount;
     }
+
+    /** getters and setters.*/
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }

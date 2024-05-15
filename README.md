@@ -1,11 +1,11 @@
-# Sugarlush - Software Assignment 2 & 3 
+# Sugarlush - Software Project
  
 ## Group Team
-| Name | ID | Email |
-|------|----|-------|
-| Sara Tamer Mohamed Bihery | 20210155 | sasooelbihery@gmail.com |
-| Sohaila Abdelazim Khalifa | 20210492 | Sohailakhalifa03@gmail.com |
-| Alan Samir Hakoun  | 20210755 | alanhakoun@gmail.com |
+| Name | Email |
+|------|-------|
+| Sara Tamer Mohamed Bihery | sasooelbihery@gmail.com |
+| Sohaila Abdelazim Khalifa | Sohailakhalifa03@gmail.com |
+| Alan Samir Hakoun | alanhakoun@gmail.com |
 
 # Sugarlush - Toffe Ecommerce Application Projcet 
 This repository contains the source code for an ecommerce application developed using Java.
